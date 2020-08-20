@@ -34,7 +34,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 `mongod --version`
 If you do not have mongodb available, you can visit https://www.mongodb.com/ for more information on how to get started.
 
-Once we have mongodb set up, lets get mongodb running in the background with `sudo mongod`. Then, we will download all necessary files starting in the root directory of our module with:
+Once we have mongodb set up, lets get mongodb running in the background by opening up a terminal window and enter `sudo mongod`. Keep this window open when seeding the database. Then, we will download all necessary files starting in the root directory of our module with:
 ```
 npm install
 ```
