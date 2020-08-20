@@ -41,7 +41,7 @@ npm install
 
 Now we can seed our mongodb database with the command:
 ```
-npm run seed
+npm run seed-db
 ```
 
 With our database now seeded with mock reviews, we can start running out webpack and our server using:
