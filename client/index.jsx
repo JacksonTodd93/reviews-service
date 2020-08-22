@@ -14,8 +14,6 @@ WebFont.load({
   }
 });
 
-Modal.setAppElement('#app');
-
 const Button = styled.button `
   margin: 5px;
   cursor: pointer;
@@ -64,7 +62,7 @@ const modalStyling = {
   }
 };
 
-class App extends React.Component {
+class Reviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -151,4 +149,4 @@ class App extends React.Component {
 }
 
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<Reviews />, document.getElementById('reviews'));
