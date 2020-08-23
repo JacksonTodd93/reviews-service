@@ -8,13 +8,13 @@ const cors = require('cors')
 app.use(cors())
 
 app.use(express.json());
-app.use('18.217.248.48:3000/:id', express.static(__dirname + "/../public"));
+app.use('http://18.217.248.48:3000/:id', express.static(__dirname + "/../public"));
 
 //get review categories
-app.use('18.217.248.48:3000/api/overall_reviews', overallReviews);
+app.use('http://18.217.248.48:3000/api/overall_reviews', overallReviews);
 
 //get individual reviews
-app.get('18.217.248.48:3000/api/individual_reviews/:id' , (req, res) => {
+app.get('http://18.217.248.48:3000/api/individual_reviews/:id' , (req, res) => {
   Review.find({}, { user: 1, imageURL: 1, date: 1, reviewTxt: 1, _id: 0}, (err, results) => {
     if (err) {
       res.status(500).send(err);
