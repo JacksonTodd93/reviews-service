@@ -3,15 +3,18 @@ const app = express()
 const port = 3000
 const Review = require('../database/connection.js')
 const overallReviews = require('./overallReviews.js')
+const cors = require('cors')
+
+app.use(cors())
 
 app.use(express.json());
-app.use('/:id', express.static(__dirname + "/../public"));
+app.use('18.217.248.48/:id', express.static(__dirname + "/../public"));
 
 //get review categories
-app.use('/api/overall_reviews', overallReviews);
+app.use('18.217.248.48/api/overall_reviews', overallReviews);
 
 //get individual reviews
-app.get('/api/individual_reviews/:id' , (req, res) => {
+app.get('18.217.248.48/api/individual_reviews/:id' , (req, res) => {
   Review.find({}, { user: 1, imageURL: 1, date: 1, reviewTxt: 1, _id: 0}, (err, results) => {
     if (err) {
       res.status(500).send(err);
