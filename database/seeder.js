@@ -7,7 +7,7 @@ for (var i = 0; i < 101; i++) {
   let randomImgNum = faker.random.number({ 'min': 1, 'max': 36 });
   let randomYear = faker.random.number({ 'min': 2013, 'max': 2020 });
   let randomMonth = faker.date.month();
-  let randomLocation = faker.random.number({ 'min': 1, 'max': 3});
+  let randomLocation = faker.random.number({ 'min': 1, 'max': 3 });
   //generate random review data
   let review = new Review({
     imageURL: `https://airbnbprojectimages.s3.us-east-2.amazonaws.com/${randomImgNum}.jpg`,
@@ -22,7 +22,7 @@ for (var i = 0; i < 101; i++) {
     location: faker.random.number({ 'min': 0, 'max': 5 }),
     value: faker.random.number({ 'min': 0, 'max': 5 })
   });
-//save random review data to database or log error
+  // save random review data to database or log error
   review.save((err, review) => {
     if (err) {
       console.log(err);
