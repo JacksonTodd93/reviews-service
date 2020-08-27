@@ -15,7 +15,7 @@
 1. [Development](#development)
 
 ## Usage
- 
+
 Choose between 3 id locations to review mock data highligting the 6 most recent reviews and displaying 6 average category scores by visiting http://localhost:3000/:id. Click on the button at the bottom of the page to view all user reviews.
 
 ## Requirements
@@ -52,3 +52,29 @@ npm start
 
 Now if you visit http://localhost:3000/:id you will see a module rendering based on the id number in the url.
 
+## CRUD Endpoints:
+
+Create:
+> POST request to /api/individual_reviews/:id inserts a new review for that listing ID.
+Request body structure (all properties are required):
+{
+    imageURL: string,
+    user: string,
+    date: string containing a month and year (e.g. 'August 2020')
+    reviewTxt: string,
+    cleanliness: integer 0 to 5,
+    communication: integer 0 to 5,
+    checkin: integer 0 to 5,
+    accuracy: integer 0 to 5,
+    location: integer 0 to 5,
+    value: integer 0 to 5,
+}
+
+Read:
+> GET request to /api/individual_reviews/:id retrieves all reviews associated with given listing ID.
+
+Update:
+> PUT request to api/individual_reviews/:reviewId will update that review. Note that reviewId is the unique hash value for a given review, and is distinct from the listing ID used in Read and Create endpoints. The request body can include any or all of the properties required for the request body in the Create endpoint. Only those properties included in the request body will be updated.
+
+Delete:
+> DELETE request to api/individual_reviews/:reviewId will delete that review. Note that reviewId is the unique hash value for a given review, and is distinct from the listing ID used in Read and Create endpoints. Request should have an empty body.
