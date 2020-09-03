@@ -1,0 +1,10 @@
+DROP DATABASE IF EXISTS reviews;
+
+CREATE DATABASE reviews;
+
+\c reviews;
+
+CREATE TABLE IF NOT EXISTS reviewData (
+  id SERIAL PRIMARY KEY
+  
+)

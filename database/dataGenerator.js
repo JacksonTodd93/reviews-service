@@ -5,11 +5,11 @@ const reviewsCount = 10000000;
 const filename = 'reviews.csv';
 const stream = fs.createWriteStream(filename);
 
-const packageReview = () => {
+const packageReview = (i) => {
   const avatarURL = `${faker.random.number({ 'min': 1, 'max': 36 })}.jpg`;
   const randomYear = faker.random.number({ 'min': 2013, 'max': 2020 });
   const randomMonth = faker.date.month();
-  const propertyID = faker.random.number({ 'min': 1, 'max': 3 });
+  const propertyID = i;
   const user = faker.name.firstName();
   const date = `${randomMonth} ${randomYear}`;
   const text = faker.lorem.paragraph();
@@ -29,7 +29,7 @@ const startWriting = (writeStream, encoding, done) => {
     let canWrite = true;
     do {
       i -= 1;
-      let review = packageReview();
+      let review = packageReview(i);
       if (i === 0) {
         writeStream.write(review, encoding, done);
       } else {
@@ -43,7 +43,8 @@ const startWriting = (writeStream, encoding, done) => {
   writing();
 };
 
-stream.write('avatarURL,propertyID,user,date,text,scores\n', 'utf-8');
+stream.write('avatarURL,propertyID,user,date,text,cleanliness,communication,checkin,accuracy,location,value\n', 'utf-8');
 startWriting(stream, 'utf-8', () => {
   stream.end();
 });
+
