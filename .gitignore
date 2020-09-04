@@ -24,4 +24,5 @@ coverage
 build/
 dist/
 reviews.csv
-
+database/cassandrainsert.js
+import_reviews_reviews.err.20200901_141919
