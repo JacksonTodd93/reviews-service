@@ -81,25 +81,19 @@ class Reviews extends React.Component {
   }
 
   fetchListingInfo(urlID) {
-    //get review rating categories
-    $.ajax({
-      url: `/api/overall_reviews/${urlID}`,
-      method: 'GET',
-      success: (reviews) => {
-        this.setState({
-          reviews: reviews[0],
-          totalNumber: reviews[1],
-          totalAvg: reviews[2]
-        });
-      }
-    });
     //get individual reviews
     $.ajax({
-      url: `/api/individual_reviews/${urlID}`,
+      url: `/api/reviews/${urlID}`,
       method: 'GET',
       success: (reviews) => {
+        const scores = reviews.pop();
+        const avg = scores.totalAvg;
+        delete scores.totalAvg;
         this.setState({
-          userReviews: reviews
+          reviews: scores,
+          userReviews: reviews,
+          totalNumber: reviews.length,
+          totalAvg: avg,
         });
       }
     });

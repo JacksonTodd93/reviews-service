@@ -10,22 +10,44 @@ app.use(cors());
 app.use(express.json());
 app.use('/:id', express.static(__dirname + "/../public"));
 
-//get review categories
-app.use('/api/overall_reviews', overallReviews); // this query needs re-writing, still configured for mongo
 
 // get individual reviews
-app.get('/api/individual_reviews/:id', (req, res) => {
+app.get('/api/reviews/:id', (req, res) => {
   const text = 'SELECT * FROM allreviews WHERE propertyID = ($1)';
   const values = [req.params.id];
   client.query(text, values, (err, result) => {
     if (err) {
       console.log(err);
     }
-    const revObj = result.rows[0];
-    const avgScore = (revObj.cleanliness + revObj.communication + revObj.checkin + revObj.accuracy
-    + revObj.location + revObj.value) / 6;
-    revObj.overall = avgScore;
-    res.send(revObj);
+    const reviewArray = result.rows;
+    let scoreObj = {
+      cleanliness: 0,
+      communication: 0,
+      checkin: 0,
+      accuracy: 0,
+      location: 0,
+      value: 0,
+    };
+    // find average scores for all reviews for this property, then insert at the end of the array
+    for (let i = 0; i < reviewArray.length; i += 1) {
+      scoreObj.cleanliness += reviewArray[i].cleanliness;
+      scoreObj.communication += reviewArray[i].communication;
+      scoreObj.checkin += reviewArray[i].checkin;
+      scoreObj.accuracy += reviewArray[i].accuracy;
+      scoreObj.location += reviewArray[i].location;
+      scoreObj.value += reviewArray[i].value;
+    }
+    scoreObj.cleanliness /= reviewArray.length;
+    scoreObj.communication /= reviewArray.length;
+    scoreObj.checkin /= reviewArray.length;
+    scoreObj.accuracy /= reviewArray.length;
+    scoreObj.location /= reviewArray.length;
+    scoreObj.value /= reviewArray.length;
+    scoreObj.totalAvg = Math.round(10 * (scoreObj.cleanliness + scoreObj.communication + scoreObj.checkin + scoreObj.accuracy + scoreObj.location + scoreObj.value) / 6) / 10;
+
+    reviewArray.push(scoreObj);
+
+    res.send(reviewArray);
   });
 });
 

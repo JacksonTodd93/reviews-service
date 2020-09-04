@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Review = require('../database/connection.js');
+const client = require('../database/connection.js');
 
 //Render overall Rating bars
 router.get("/:id", (req, res) => {
