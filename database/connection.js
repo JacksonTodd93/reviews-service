@@ -8,11 +8,7 @@ const client = new Client({
   port: 5432,
 });
 
-//connect mongoose to postgres
+//connect to database
 client.connect();
-
-//define reviewSchema values
-
-//create model for schema inputs
 
 module.exports = client;
