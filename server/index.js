@@ -2,13 +2,12 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const client = require('../database/connection.js');
-const overallReviews = require('./overallReviews.js');
 const cors = require('cors');
 
 app.use(cors());
 
 app.use(express.json());
-app.use('/:id', express.static(__dirname + "/../public"));
+app.use('/:id', express.static(__dirname + '/../public'));
 
 
 // get individual reviews
@@ -43,6 +42,7 @@ app.get('/api/reviews/:id', (req, res) => {
     scoreObj.accuracy /= reviewArray.length;
     scoreObj.location /= reviewArray.length;
     scoreObj.value /= reviewArray.length;
+    // Take avg, multiply by 10, round, then divide by 10 so that all scores are rounded to 1 decimal place.
     scoreObj.totalAvg = Math.round(10 * (scoreObj.cleanliness + scoreObj.communication + scoreObj.checkin + scoreObj.accuracy + scoreObj.location + scoreObj.value) / 6) / 10;
 
     reviewArray.push(scoreObj);
