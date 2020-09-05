@@ -25,15 +25,19 @@ const packageReview = (i) => {
 
 const startWriting = (writeStream, encoding, done) => {
   let i = reviewsCount;
-  const writing = function() {
+  const writing = function () {
     let canWrite = true;
     do {
       i -= 1;
-      let review = packageReview(i);
-      if (i === 0) {
-        writeStream.write(review, encoding, done);
-      } else {
-        writeStream.write(review, encoding);
+      let reviewCount = 1 + Math.floor(Math.random() * 2);
+      // A script to generate between 1 and 3 reviews per property
+      for (let j = 0; j < reviewCount; j++) {
+        let review = packageReview(i);
+        if (i === 0) {
+          writeStream.write(review, encoding, done);
+        } else {
+          writeStream.write(review, encoding);
+        }
       }
     } while (i > 0 && canWrite);
     if (i > 0 && !canWrite) {

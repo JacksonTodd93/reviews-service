@@ -64,16 +64,17 @@ const Paragraph = styled.p`
 const UserReviews = (props) => (
   <StyledUserReviews>
     {props.reviews.map((review, index) => {
-      return(
+      const avatarurl = `https://reviews-photo-storage.s3.us-east-2.amazonaws.com/img0${review.avatarurl}`;
+      return (
         <StyledReview key={index}>
           <User>
-            <UserImage src={review.imageURL}></UserImage>
+            <UserImage src={avatarurl}></UserImage>
             <UserInfo>
-              <Username>{review.user}</Username>
+              <Username>{review.username}</Username>
               <Date>{moment(review.date).format('MMMM YYYY')}</Date>
             </UserInfo>
           </User>
-          <Paragraph>{review.reviewTxt}</Paragraph>
+          <Paragraph>{review.text}</Paragraph>
         </StyledReview>
       );
     })}
