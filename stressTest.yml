@@ -1,0 +1,18 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+  - duration: 10
+    arrivalRate: 5
+    name: Warm up
+  - duration: 60
+    arrivalRate: 5
+    rampTo: 2500
+    name: Ramp up load
+  - duration: 120
+    arrivalRate: 2500
+    name: Torture!
+scenarios:
+  - name: "Load reviews"
+    flow:
+      - get:
+          url: "/api/reviews/{{ $randomNumber(9000000, 10000000) }}"
