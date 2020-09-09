@@ -63,7 +63,7 @@ const ModalApp = (props) => (
     <View>
       <ModalReviewCategories>
         <ModalHeader>
-          <div style={{ display: "inline-block", color: "red"}}>★</div> {props.totalAvg} ({props.totalReviews} reviews)
+          <div style={{ display: 'inline-block', color: 'red'}}>★</div> {props.totalAvg} ({props.totalReviews} reviews)
         </ModalHeader>
         <ModalView><ReviewRatings reviews={props.categoryReviews} /></ModalView>
       </ModalReviewCategories>

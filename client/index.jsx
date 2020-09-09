@@ -14,7 +14,7 @@ WebFont.load({
   }
 });
 
-const Button = styled.button `
+const Button = styled.button`
   margin: 5px;
   cursor: pointer;
   text-align: center;
@@ -83,7 +83,7 @@ class Reviews extends React.Component {
   fetchListingInfo(urlID) {
     //get individual reviews
     $.ajax({
-      url: `/api/reviews/${urlID}`,
+      url: `http://localhost:3000/api/reviews/${urlID}`,
       method: 'GET',
       success: (reviews) => {
         const scores = reviews.pop();
@@ -113,20 +113,21 @@ class Reviews extends React.Component {
   render() {
     return (
       <div style={{
-        fontFamily: "Roboto"
+        fontFamily: 'Roboto'
       }}>
         <div className="review-header">
           <TotalReviews>
             <div style={{
-              display: "inline-block",
-              color: "red"}}>★</div>{this.state.totalAvg} ({this.state.totalNumber} reviews)
+              display: 'inline-block',
+              color: 'red'
+            }}>★</div>{this.state.totalAvg} ({this.state.totalNumber} reviews)
           </TotalReviews>
         </div>
         <NormalView>
           <ReviewRatings reviews={this.state.reviews} />
         </NormalView>
         <NormalViewUsers>
-          <UserReviews reviews={this.state.userReviews.slice(0, 6)}/>
+          <UserReviews reviews={this.state.userReviews.slice(0, 6)} />
         </NormalViewUsers>
         <Modal isOpen={this.state.showReviews} onRequestClose={this.handleClose.bind(this)} style={modalStyling}>
           <ModalApp
@@ -141,6 +142,6 @@ class Reviews extends React.Component {
     );
   }
 }
-
+Modal.setAppElement('#reviews');
 
 ReactDOM.render(<Reviews />, document.getElementById('reviews'));

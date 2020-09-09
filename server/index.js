@@ -1,4 +1,5 @@
 const express = require('express');
+require('newrelic');
 const app = express();
 const port = 3000;
 const client = require('../database/connection.js');
@@ -12,7 +13,7 @@ app.use('/:id', express.static(__dirname + '/../public'));
 
 // get individual reviews
 app.get('/api/reviews/:id', (req, res) => {
-  const text = 'SELECT * FROM allreviews WHERE propertyID = ($1)';
+  const text = 'SELECT * FROM reviews WHERE propertyID = ($1)';
   const values = [req.params.id];
   client.query(text, values, (err, result) => {
     if (err) {
@@ -36,12 +37,12 @@ app.get('/api/reviews/:id', (req, res) => {
       scoreObj.location += reviewArray[i].location;
       scoreObj.value += reviewArray[i].value;
     }
-    scoreObj.cleanliness /= reviewArray.length;
-    scoreObj.communication /= reviewArray.length;
-    scoreObj.checkin /= reviewArray.length;
-    scoreObj.accuracy /= reviewArray.length;
-    scoreObj.location /= reviewArray.length;
-    scoreObj.value /= reviewArray.length;
+    scoreObj.cleanliness = Math.round(10 * scoreObj.cleanliness / reviewArray.length) / 10;
+    scoreObj.communication = Math.round(10 * scoreObj.communication / reviewArray.length) / 10;
+    scoreObj.checkin = Math.round(10 * scoreObj.checkin / reviewArray.length) / 10;
+    scoreObj.accuracy = Math.round(10 * scoreObj.accuracy / reviewArray.length) / 10;
+    scoreObj.location = Math.round(10 * scoreObj.location / reviewArray.length) / 10;
+    scoreObj.value = Math.round(10 * scoreObj.value / reviewArray.length) / 10;
     // Take avg, multiply by 10, round, then divide by 10 so that all scores are rounded to 1 decimal place.
     scoreObj.totalAvg = Math.round(10 * (scoreObj.cleanliness + scoreObj.communication + scoreObj.checkin + scoreObj.accuracy + scoreObj.location + scoreObj.value) / 6) / 10;
 
